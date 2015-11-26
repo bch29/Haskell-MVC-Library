@@ -49,7 +49,7 @@ forkManaged cb = managed $ \k -> do
 
 {-| Create a `Controller` from a `Producer`, using the given `Buffer`
 
-    If you're not sure what `Buffer` to use, try `Single`
+    If you're not sure what `Buffer` to use, try `single`
 -}
 producer :: Buffer a -> Producer a IO () -> Managed (Controller a)
 producer buffer prod = forkManaged $ do
@@ -172,7 +172,7 @@ outHandle filePath = managed (IO.withFile filePath IO.WriteMode)
 >         totalOut = handles _Left drawRect <> handles _Right done
 > 
 >     k $ do
->         totalIn <- producer Single (lift waitEvent >~ cat)
+>         totalIn <- producer single (lift waitEvent >~ cat)
 >         return (totalOut, totalIn)
 
     Note the `Control.Monad.join` surrounding the `managed` block.  This is
